@@ -47,10 +47,12 @@ namespace WebAddressbookTests
             GoToGroupsPage();
             InitGroupCreation();
             GroupData group = new GroupData("New group1");
+            /*
             group.Header = "Logo1";
             group.Footer = "Comment1";
+            */
             FillGroupForm(group);
-            SubmitDroupCreation();
+            SubmitGroupCreation();
             ReternToGroupsPage();
         }
 
@@ -59,7 +61,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("Logout")).Click();
         }
 
-        private void SubmitDroupCreation()
+        private void SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
         }
