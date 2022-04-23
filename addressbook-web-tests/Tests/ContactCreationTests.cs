@@ -12,9 +12,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            GoToAddNewPage();
+            app.Navigator.GoToAddNewPage();
             ContactData contact = new ContactData("First name", "Last name");
             /*
             contact.Middlename = "Middle name";
@@ -36,9 +34,10 @@ namespace WebAddressbookTests
             contact.Phone2 = "Phone2";
             contact.Notes = "Notes";
             */
-            FillContactForm(contact);
-            SaveContactForm();
-            ReternToAddNewPage();
+            app.Contacts
+                .FillContactForm(contact)
+                .SaveContactForm()
+                .ReternToAddNewPage();
         }
     }
 }
