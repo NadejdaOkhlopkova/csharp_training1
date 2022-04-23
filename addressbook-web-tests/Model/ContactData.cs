@@ -28,6 +28,11 @@ namespace WebAddressbookTests
         public string address2 = "";
         public string phone2 = "";
         public string notes = "";
+        public string new_group = "[none]";
+        public string bday = "";
+        public string aday = "";
+        public string bmonth = "-";
+        public string amonth = "-";
 
         public ContactData(string firstname, string lastname)
         {
@@ -254,10 +259,61 @@ namespace WebAddressbookTests
                 notes = value;
             }
         }
-
-
-
-
+        public string New_group
+        {
+            get
+            {
+                return new_group;
+            }
+            set
+            {
+                new_group = value;
+            }
+        }
+        public string Bday
+        {
+            get
+            {
+                return bday;
+            }
+            set
+            {
+                bday = value;
+            }
+        }
+        public string Aday
+        {
+            get
+            {
+                return aday;
+            }
+            set
+            {
+                aday = value;
+            }
+        }
+        public string Bmonth
+        {
+            get
+            {
+                return bmonth;
+            }
+            set
+            {
+                bmonth = value;
+            }
+        }
+        public string Amonth
+        {
+            get
+            {
+                return amonth;
+            }
+            set
+            {
+                amonth = value;
+            }
+        }
     }
 
 }
