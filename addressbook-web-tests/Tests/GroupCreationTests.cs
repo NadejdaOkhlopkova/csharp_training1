@@ -16,7 +16,6 @@ namespace WebAddressbookTests
             group.Header = "Logo1";
             group.Footer = "Comment1";
 
-            app.Navigator.GoToGroupsPage();
             app.Groups.Create(group);
         }
         [Test]
@@ -26,7 +25,6 @@ namespace WebAddressbookTests
             group.Header = "";
             group.Footer = "";
 
-            app.Navigator.GoToGroupsPage();
             app.Groups.Create(group);
         }
     }
