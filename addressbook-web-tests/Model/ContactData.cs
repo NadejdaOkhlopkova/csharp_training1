@@ -29,8 +29,8 @@ namespace WebAddressbookTests
         public string phone2 = "";
         public string notes = "";
         public string new_group = "[none]";
-        public string bday = "";
-        public string aday = "";
+        public string bday = "0";
+        public string aday = "0";
         public string bmonth = "-";
         public string amonth = "-";
 

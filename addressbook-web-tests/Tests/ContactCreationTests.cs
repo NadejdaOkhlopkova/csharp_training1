@@ -12,7 +12,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contact = new ContactData("First name", "Last name");
+            ContactData contact = new ContactData("First name", "Last name1");
             contact.Middlename = "Middle name";
             contact.Nickname = "Nickname";
             contact.Title = "Title";
@@ -27,7 +27,11 @@ namespace WebAddressbookTests
             contact.Email3 = "Email3";
             contact.Homepage = "Homepage";
             contact.Byear = "2001";
+            contact.Bday = "3";
+            contact.Bmonth = "June";
             contact.Ayear = "2001";
+            contact.Bday = "3";
+            contact.Bmonth = "June";
             contact.Address2 = "Address2";
             contact.Phone2 = "Phone2";
             contact.Notes = "Notes";
