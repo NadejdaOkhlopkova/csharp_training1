@@ -154,10 +154,13 @@ namespace WebAddressbookTests
         }
         public void ContactExistenceCheck()
         {
-            if (!FindContact())
+            manager.Navigator.OpenHomePage();
+
+            if (FindContact())
             {
-                CreateFirstContact();
+                return;
             }
+            CreateFirstContact();
         }
 
         public void CreateFirstContact()
@@ -169,9 +172,6 @@ namespace WebAddressbookTests
             FillContactFormWithoutGroup(contact);
             AddGroupInContact(contact);
             SaveContactForm();
-
-            manager.Navigator.OpenHomePage();
-
         }
     }
 }

@@ -32,7 +32,6 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
-            GroupExistenceCheck();
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
@@ -46,7 +45,6 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
-            GroupExistenceCheck();
             SelectGroup(v);
             RemoveGroup();
             ReternToGroupsPage();
@@ -103,12 +101,16 @@ namespace WebAddressbookTests
         {
             return IsElementPresent(By.Name("selected[]"));
         }
+
         public void GroupExistenceCheck()
         {
-            if (!FindGroup())
+            manager.Navigator.GoToGroupsPage();
+
+            if (FindGroup())
             {
-                CreateFirstGroup();
+                return;
             }
+            CreateFirstGroup();
         }
         public void CreateFirstGroup()
         {
@@ -117,8 +119,6 @@ namespace WebAddressbookTests
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
-
-            manager.Navigator.GoToGroupsPage();
         }
     }
 }

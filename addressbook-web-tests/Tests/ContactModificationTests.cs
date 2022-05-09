@@ -37,6 +37,7 @@ namespace WebAddressbookTests
             newContact.Phone2 = null;
             newContact.Notes = null;
 
+            app.Contacts.ContactExistenceCheck();
             app.Contacts.Modify(1, newContact);
         }
 
