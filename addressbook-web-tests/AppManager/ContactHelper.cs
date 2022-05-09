@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -21,29 +22,39 @@ namespace WebAddressbookTests
         public ContactHelper Create(ContactData contact)
         {
             manager.Navigator.GoToAddNewPage();
-
             FillContactFormWithoutGroup(contact);
             AddGroupInContact(contact);
             SaveContactForm();
-            ReternToAddNewPage();
+            manager.Auth.Logout();
+            Thread.Sleep(250);
             return this;
         }
         public ContactHelper Modify(int v, ContactData newContact)
         {
+            manager.Navigator.OpenHomePage();
+
+            ContactExistenceCheck();
             ChooseContact(v);
             InitContactModification(v);
             FillContactFormWithoutGroup(newContact);
             SubmitContactModification();
             ReternToHomePage();
+            manager.Auth.Logout();
+            Thread.Sleep(250);
             return this;
         }
 
         public ContactHelper Remove(int a)
         {
+            manager.Navigator.OpenHomePage();
+
+            ContactExistenceCheck();
             ChooseContact(a);
             DeleteContact();
             ConfirmContactDeletion();
             ReternToHomePage();
+            manager.Auth.Logout();
+            Thread.Sleep(250);
             return this;
         }
 
@@ -101,11 +112,13 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
             return this;
         }
+        /*
         public ContactHelper ReternToAddNewPage()
         {
             driver.FindElement(By.LinkText("Logout")).Click();
             return this;
         }
+        */
         public ContactHelper ChooseContact(int index)
         {
             driver.FindElement(By.XPath("//tr[@name=\"entry\"][" + index + "]//input[@type='checkbox']")).Click();
@@ -134,6 +147,31 @@ namespace WebAddressbookTests
         {
             driver.SwitchTo().Alert().Accept();
             return this;
+        }
+        public bool FindContact()
+        {
+            return IsElementPresent(By.Name("selected[]"));
+        }
+        public void ContactExistenceCheck()
+        {
+            if (!FindContact())
+            {
+                CreateFirstContact();
+            }
+        }
+
+        public void CreateFirstContact()
+        {
+            manager.Navigator.GoToAddNewPage();
+
+            ContactData contact = new ContactData("First name", "Last name1");
+
+            FillContactFormWithoutGroup(contact);
+            AddGroupInContact(contact);
+            SaveContactForm();
+
+            manager.Navigator.OpenHomePage();
+
         }
     }
 }

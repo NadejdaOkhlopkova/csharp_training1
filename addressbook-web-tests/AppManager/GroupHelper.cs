@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -23,6 +24,7 @@ namespace WebAddressbookTests
             FillGroupForm(group);
             SubmitGroupCreation();
             ReternToGroupsPage();
+            Thread.Sleep(250);
             return this;
         }
 
@@ -30,20 +32,25 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
+            GroupExistenceCheck();
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
             ReternToGroupsPage();
+            Thread.Sleep(250);
             return this;
         }
+
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupsPage();
 
+            GroupExistenceCheck();
             SelectGroup(v);
             RemoveGroup();
             ReternToGroupsPage();
+            Thread.Sleep(250);
             return this;
         }
 
@@ -92,6 +99,26 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
+        public bool FindGroup()
+        {
+            return IsElementPresent(By.Name("selected[]"));
+        }
+        public void GroupExistenceCheck()
+        {
+            if (!FindGroup())
+            {
+                CreateFirstGroup();
+            }
+        }
+        public void CreateFirstGroup()
+        {
+            GroupData group = new GroupData("New group1");
 
+            InitGroupCreation();
+            FillGroupForm(group);
+            SubmitGroupCreation();
+
+            manager.Navigator.GoToGroupsPage();
+        }
     }
 }
