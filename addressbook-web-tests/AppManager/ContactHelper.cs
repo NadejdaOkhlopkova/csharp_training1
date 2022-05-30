@@ -22,10 +22,11 @@ namespace WebAddressbookTests
         public ContactHelper Create(ContactData contact)
         {
             manager.Navigator.GoToAddNewPage();
+
             FillContactFormWithoutGroup(contact);
             AddGroupInContact(contact);
             SaveContactForm();
-            manager.Auth.Logout();
+            manager.Navigator.OpenHomePage();
             Thread.Sleep(250);
             return this;
         }
@@ -33,13 +34,12 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
 
-            ContactExistenceCheck();
             ChooseContact(v);
             InitContactModification(v);
             FillContactFormWithoutGroup(newContact);
             SubmitContactModification();
             ReternToHomePage();
-            manager.Auth.Logout();
+            manager.Navigator.OpenHomePage();
             Thread.Sleep(250);
             return this;
         }
@@ -48,12 +48,11 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
 
-            ContactExistenceCheck();
             ChooseContact(a);
             DeleteContact();
             ConfirmContactDeletion();
             ReternToHomePage();
-            manager.Auth.Logout();
+            manager.Navigator.OpenHomePage();
             Thread.Sleep(250);
             return this;
         }
@@ -121,7 +120,7 @@ namespace WebAddressbookTests
         */
         public ContactHelper ChooseContact(int index)
         {
-            driver.FindElement(By.XPath("//tr[@name=\"entry\"][" + index + "]//input[@type='checkbox']")).Click();
+            driver.FindElement(By.XPath("//tr[@name=\"entry\"][" + (index+1) + "]//input[@type='checkbox']")).Click();
             acceptNextAlert = true;
             return this;
         }
@@ -134,7 +133,7 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("//tr[@name=\"entry\"][" + index + "]//img[@alt='Edit']")).Click();
+            driver.FindElement(By.XPath("//tr[@name=\"entry\"][" + (index+1) + "]//img[@alt='Edit']")).Click();
             return this;
         }
         public ContactHelper DeleteContact()
@@ -172,6 +171,20 @@ namespace WebAddressbookTests
             FillContactFormWithoutGroup(contact);
             AddGroupInContact(contact);
             SaveContactForm();
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.OpenHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                cells.GetEnumerator();
+                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
+            }
+            return contacts;
         }
     }
 }
