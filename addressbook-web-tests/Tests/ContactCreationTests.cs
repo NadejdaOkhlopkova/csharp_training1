@@ -42,6 +42,8 @@ namespace WebAddressbookTests
 
             app.Contacts.Create(contact);
 
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts.Add(contact);
             oldContacts.Sort();
@@ -53,8 +55,25 @@ namespace WebAddressbookTests
         public void EmptyContactCreationTest()
         {
             ContactData contact = new ContactData("", "");
+            contact.Byear = "";
+            contact.Bday = "0";
+            contact.Bmonth = "-";
+            contact.Ayear = "";
+            contact.Aday = "0";
+            contact.Amonth = "-";
+            contact.New_group = "[none]";
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
+
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
