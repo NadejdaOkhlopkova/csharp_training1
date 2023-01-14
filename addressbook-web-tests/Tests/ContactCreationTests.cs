@@ -31,11 +31,12 @@ namespace WebAddressbookTests
             contact.Bday = "3";
             contact.Bmonth = "June";
             contact.Ayear = "2001";
-            contact.Bday = "3";
-            contact.Bmonth = "June";
+            contact.Aday = "3";
+            contact.Amonth = "June";
             contact.Address2 = "Address2";
             contact.Phone2 = "Phone2";
             contact.Notes = "Notes";
+            contact.New_group = "[none]";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 

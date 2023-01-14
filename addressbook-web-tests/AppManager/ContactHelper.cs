@@ -128,6 +128,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[22]")).Click();
+            //contactCache = null;
             return this;
         }
 
@@ -139,6 +140,7 @@ namespace WebAddressbookTests
         public ContactHelper DeleteContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            //contactCache = null;
             return this;
         }
 
@@ -186,5 +188,10 @@ namespace WebAddressbookTests
             }
             return contacts;
         }
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.CssSelector("td.center")).Count;
+        }
+
     }
 }

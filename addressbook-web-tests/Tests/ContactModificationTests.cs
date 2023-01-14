@@ -31,11 +31,12 @@ namespace WebAddressbookTests
             newContact.Bday = "3";
             newContact.Bmonth = "June";
             newContact.Ayear = null;
-            newContact.Bday = "3";
-            newContact.Bmonth = "June";
+            newContact.Aday = "3";
+            newContact.Amonth = "June";
             newContact.Address2 = null;
             newContact.Phone2 = null;
             newContact.Notes = null;
+            newContact.New_group = "[none]";
 
             app.Contacts.ContactExistenceCheck();
 
@@ -49,6 +50,7 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
         }
 
     }
