@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData> , IComparable<ContactData>   
     {
+        private string allEmails;
+        private string allPhones;
+
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
@@ -73,7 +77,60 @@ namespace WebAddressbookTests
         public string Bmonth { get; set; }
         public string Amonth { get; set;  }
         public string Id { get; set; }
+        public string AllPhones 
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUpPhone(Home) + CleanUpPhone(Mobile) + CleanUpPhone(Work) + CleanUpPhone(Phone2)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
 
+        private string CleanUpPhone(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+        }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
+        private string CleanUpEmail(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+            return Regex.Replace(email, "[ ]", "") + "\r\n";
+        }
     }
-
 }
